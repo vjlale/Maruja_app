@@ -11,7 +11,7 @@ interface Particle {
   rotation: number;
 }
 
-const COLORS = ['#a855f7', '#ec4899', '#06b6d4', '#eab308', '#22c55e', '#f97316', '#ffffff'];
+const COLORS = ['#E12FBE', '#5FE88E', '#E8B84A', '#F0654F', '#9B1B5A', '#C9A84C', '#ffffff'];
 
 export function Confetti() {
   const [particles, setParticles] = useState<Particle[]>([]);

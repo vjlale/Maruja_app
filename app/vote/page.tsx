@@ -2,13 +2,16 @@
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSocket } from '@/lib/socket-client';
+import { MarujaLogo } from '@/components/MarujaLogo';
+import { TramaBackground } from '@/components/TramaBackground';
+import { PopDecor } from '@/components/PopDecor';
 import type { Song } from '@/lib/types';
 
 const SONG_COLORS = [
-  { bg: 'from-purple-600 to-purple-900', border: '#a855f7', glow: 'rgba(168,85,247,0.5)' },
-  { bg: 'from-pink-600 to-pink-900', border: '#ec4899', glow: 'rgba(236,72,153,0.5)' },
-  { bg: 'from-cyan-600 to-cyan-900', border: '#06b6d4', glow: 'rgba(6,182,212,0.5)' },
-  { bg: 'from-orange-500 to-orange-900', border: '#f97316', glow: 'rgba(249,115,22,0.5)' },
+  { border: '#E12FBE', glow: 'rgba(225,47,190,0.5)' },
+  { border: '#5FE88E', glow: 'rgba(95,232,142,0.45)' },
+  { border: '#E8B84A', glow: 'rgba(232,184,74,0.45)' },
+  { border: '#F0654F', glow: 'rgba(240,101,79,0.45)' },
 ];
 
 function getVoterId() {
@@ -52,24 +55,28 @@ export default function VotePage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-between p-4"
-      style={{ background: 'linear-gradient(180deg, #06030f 0%, #0d0520 50%, #06030f 100%)' }}
+      className="min-h-screen flex flex-col items-center justify-between p-4 relative overflow-hidden font-serif-pf"
+      style={{ background: 'linear-gradient(180deg, #06030f 0%, #150826 50%, #06030f 100%)' }}
     >
+      <TramaBackground variant="rosa" opacity={0.05} />
+      <PopDecor scene="vote" />
+
       {/* Header */}
-      <div className="w-full flex flex-col items-center pt-4 pb-2">
-        <motion.h1
-          className="text-5xl font-black tracking-widest"
-          style={{ letterSpacing: '0.2em' }}
+      <div className="w-full flex flex-col items-center pt-4 pb-2 z-10">
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <span className="gradient-text">MARUJA</span>
-        </motion.h1>
-        <p className="text-purple-300 text-sm mt-1 tracking-widest uppercase">Votación en Vivo</p>
+          <MarujaLogo
+            imgClassName="h-16 w-auto"
+            textClassName="text-5xl tracking-[0.15em]"
+          />
+        </motion.div>
+        <p className="text-gold-light text-sm mt-1 tracking-widest uppercase font-display">Votación en Vivo</p>
       </div>
 
       {/* Content area */}
-      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md">
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md z-10">
         <AnimatePresence mode="wait">
 
           {/* IDLE state */}
@@ -81,9 +88,9 @@ export default function VotePage() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="text-center px-6"
             >
-              <div className="text-7xl mb-6 float-anim">🎵</div>
-              <h2 className="text-2xl font-bold text-white mb-3">La fiesta empieza pronto</h2>
-              <p className="text-purple-300 text-lg">Esperá la señal del DJ para votar por tu canción favorita</p>
+              <div className="text-7xl mb-6 float-anim">💋</div>
+              <h2 className="text-2xl font-bold text-white mb-3 font-display">La fiesta empieza pronto</h2>
+              <p className="text-gold-light text-lg">Esperá la señal del DJ para votar por tu canción favorita</p>
             </motion.div>
           )}
 
@@ -100,10 +107,10 @@ export default function VotePage() {
               <div className="flex flex-col items-center mb-6">
                 <div className="relative w-20 h-20 mb-2">
                   <svg className="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
-                    <circle cx="40" cy="40" r="34" fill="none" stroke="#1a0a2e" strokeWidth="8" />
+                    <circle cx="40" cy="40" r="34" fill="none" stroke="#2a0f3e" strokeWidth="8" />
                     <circle
                       cx="40" cy="40" r="34" fill="none"
-                      stroke={timerPct > 0.3 ? '#a855f7' : '#ef4444'}
+                      stroke={timerPct > 0.3 ? '#E12FBE' : '#ef4444'}
                       strokeWidth="8"
                       strokeLinecap="round"
                       strokeDasharray={`${2 * Math.PI * 34}`}
@@ -115,7 +122,7 @@ export default function VotePage() {
                     {timerStr}
                   </span>
                 </div>
-                <p className="text-purple-300 text-sm tracking-wider uppercase">
+                <p className="text-gold-light text-sm tracking-wider uppercase font-display">
                   {voted ? '¡Voto registrado!' : '¿Cuál querés escuchar?'}
                 </p>
               </div>
@@ -175,7 +182,7 @@ export default function VotePage() {
               </div>
 
               {!voted && (
-                <p className="text-center text-purple-400 text-xs mt-4">
+                <p className="text-center text-magenta text-xs mt-4">
                   Solo podés votar una vez
                 </p>
               )}
@@ -196,10 +203,10 @@ export default function VotePage() {
                 animate={{ rotate: [0, -10, 10, -10, 10, 0], scale: [1, 1.1, 1] }}
                 transition={{ duration: 0.8, repeat: Infinity }}
               >
-                🥁
+                🪩
               </motion.div>
-              <h2 className="text-2xl font-bold text-white mb-2">Contando votos...</h2>
-              <p className="text-purple-300">{state.totalVotes} votos registrados</p>
+              <h2 className="text-2xl font-bold text-white mb-2 font-display">Contando votos...</h2>
+              <p className="text-gold-light">{state.totalVotes} votos registrados</p>
             </motion.div>
           )}
 
@@ -220,17 +227,17 @@ export default function VotePage() {
               >
                 🏆
               </motion.div>
-              <p className="text-purple-300 text-sm uppercase tracking-widest mb-2">¡Ganadora!</p>
+              <p className="text-gold-light text-sm uppercase tracking-widest mb-2 font-display">¡Ganadora!</p>
               {(() => {
                 const winner = state.songs.find(s => s.id === state.winnerId);
                 return winner ? (
                   <>
-                    <h2 className="text-3xl font-black text-white mb-1">{winner.title}</h2>
-                    <p className="text-lg" style={{ color: '#a855f7' }}>{winner.artist}</p>
+                    <h2 className="text-3xl font-black text-white mb-1 font-display">{winner.title}</h2>
+                    <p className="text-lg" style={{ color: '#E12FBE' }}>{winner.artist}</p>
                   </>
                 ) : null;
               })()}
-              <p className="text-purple-400 text-sm mt-4">{state.totalVotes} votos en total</p>
+              <p className="text-gold text-sm mt-4">{state.totalVotes} votos en total</p>
             </motion.div>
           )}
 
@@ -238,8 +245,8 @@ export default function VotePage() {
       </div>
 
       {/* Footer */}
-      <div className="py-3 text-center">
-        <p className="text-purple-900 text-xs">maruja.party</p>
+      <div className="py-3 text-center z-10">
+        <p className="text-magenta-deep text-xs font-display tracking-widest">MARUJA</p>
       </div>
     </div>
   );

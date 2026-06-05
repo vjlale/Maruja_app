@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+/* ═══ Paleta de marca Maruja (Tailwind v4 @theme) ═══ */
+@theme {
+  --color-magenta: #E12FBE;
+  --color-magenta-deep: #9B1B5A;
+  --color-lime: #5FE88E;
+  --color-lime-deep: #2BA85E;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8C96A;
+  --color-coral: #F0654F;
+  --color-bg-deep: #06030f;
+  --color-bg-mid: #0d0520;
+}
+
 :root {
   --background: #06030f;
   --foreground: #ffffff;
@@ -8,7 +21,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: var(--font-playfair), 'Inter', Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -16,8 +29,8 @@ body {
 * { box-sizing: border-box; }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px 5px rgba(168, 85, 247, 0.4); }
-  50% { box-shadow: 0 0 50px 20px rgba(168, 85, 247, 0.8); }
+  0%, 100% { box-shadow: 0 0 20px 5px rgba(225, 47, 190, 0.4); }
+  50% { box-shadow: 0 0 50px 20px rgba(225, 47, 190, 0.8); }
 }
 
 @keyframes float {
@@ -39,8 +52,9 @@ body {
 .float-anim { animation: float 3s ease-in-out infinite; }
 .spin-slow { animation: spin-slow 20s linear infinite; }
 
+/* Texto con degradé magenta → oro → lima (animado) */
 .gradient-text {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+  background: linear-gradient(135deg, #E12FBE 0%, #E8C96A 50%, #5FE88E 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -48,7 +62,25 @@ body {
   animation: shimmer 3s linear infinite;
 }
 
+/* Wordmark dorado metálico — imita el logo "M" (oro con veta magenta) */
+.gold-text {
+  background: linear-gradient(135deg,
+    #8a6a2a 0%,
+    #E8C96A 22%,
+    #fff3d0 42%,
+    #C9A84C 58%,
+    #9B1B5A 78%,
+    #E8C96A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 8px rgba(155, 27, 90, 0.45));
+}
+
+.font-display { font-family: var(--font-cinzel), 'Playfair Display', serif; }
+.font-serif-pf { font-family: var(--font-playfair), serif; }
+
 .neon-border {
-  border: 2px solid rgba(168, 85, 247, 0.6);
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.05);
+  border: 2px solid rgba(225, 47, 190, 0.6);
+  box-shadow: 0 0 15px rgba(225, 47, 190, 0.3), inset 0 0 15px rgba(225, 47, 190, 0.05);
 }
