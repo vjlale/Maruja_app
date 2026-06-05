@@ -3,10 +3,11 @@ import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useSocket } from '@/lib/socket-client';
 import { useVoteUrl } from '@/lib/vote-url';
+import { MarujaLogo } from '@/components/MarujaLogo';
 import { QRCodeSVG } from 'qrcode.react';
 import type { Song } from '@/lib/types';
 
-const SONG_COLORS = ['#a855f7', '#ec4899', '#06b6d4', '#f97316'];
+const SONG_COLORS = ['#E12FBE', '#5FE88E', '#E8B84A', '#F0654F'];
 const DEFAULT_SONGS: Song[] = [
   { id: '1', title: '', artist: '', coverUrl: '' },
   { id: '2', title: '', artist: '', coverUrl: '' },
@@ -17,9 +18,9 @@ const DEFAULT_SONGS: Song[] = [
 function StatusBadge({ status }: { status: string }) {
   const map: Record<string, { label: string; color: string }> = {
     idle: { label: 'En espera', color: '#6b7280' },
-    voting: { label: 'VOTANDO', color: '#22c55e' },
-    revealing: { label: 'Revelando', color: '#eab308' },
-    winner: { label: 'GANADOR', color: '#a855f7' },
+    voting: { label: 'VOTANDO', color: '#E12FBE' },
+    revealing: { label: 'Revelando', color: '#E8C96A' },
+    winner: { label: 'GANADOR', color: '#C9A84C' },
   };
   const s = map[status] ?? map.idle;
   return (
@@ -75,21 +76,17 @@ export default function AdminPage() {
 
   return (
     <div
-      className="min-h-screen p-6"
+      className="min-h-screen p-6 font-serif-pf"
       style={{ background: '#06030f', color: 'white' }}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-black tracking-widest">
-            <span style={{
-              background: 'linear-gradient(135deg, #a855f7, #ec4899)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>MARUJA</span>
-            <span className="text-gray-400 text-xl font-normal ml-3">Panel del DJ</span>
-          </h1>
+        <div className="flex items-center gap-3">
+          <MarujaLogo
+            imgClassName="h-12 w-auto"
+            textClassName="text-3xl tracking-widest"
+          />
+          <span className="text-gray-400 text-xl font-normal font-display">Panel del DJ</span>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
@@ -101,8 +98,9 @@ export default function AdminPage() {
             onClick={openDisplay}
             className="px-4 py-2 rounded-xl font-bold text-sm transition-all hover:scale-105"
             style={{
-              background: 'linear-gradient(135deg, #a855f7, #ec4899)',
-              boxShadow: '0 0 20px rgba(168,85,247,0.4)',
+              background: 'linear-gradient(135deg, var(--color-magenta), var(--color-gold-light))',
+              color: '#1a0a14',
+              boxShadow: '0 0 20px rgba(225,47,190,0.4)',
             }}
           >
             Abrir Display
@@ -115,7 +113,7 @@ export default function AdminPage() {
         {/* LEFT: Song Configuration */}
         <div
           className="rounded-2xl p-6"
-          style={{ background: '#0d0520', border: '1px solid rgba(168,85,247,0.2)' }}
+          style={{ background: '#0d0520', border: '1px solid rgba(225,47,190,0.2)' }}
         >
           <h2 className="text-xl font-bold text-white mb-4">Configurar Canciones</h2>
 
@@ -168,7 +166,7 @@ export default function AdminPage() {
           {/* Timer slider */}
           <div className="mt-6">
             <div className="flex justify-between mb-2">
-              <label className="text-sm font-bold text-purple-300">Tiempo de votación</label>
+              <label className="text-sm font-bold text-gold-light">Tiempo de votación</label>
               <span className="text-sm font-bold text-white">
                 {Math.floor(duration / 60)}:{String(duration % 60).padStart(2, '0')} min
               </span>
@@ -181,7 +179,7 @@ export default function AdminPage() {
               value={duration}
               onChange={e => setDuration(Number(e.target.value))}
               disabled={status !== 'idle'}
-              className="w-full accent-purple-500 disabled:opacity-50"
+              className="w-full disabled:opacity-50 accent-magenta"
             />
             <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span>15 seg</span>
@@ -193,7 +191,7 @@ export default function AdminPage() {
             onClick={configure}
             disabled={status !== 'idle'}
             className="w-full mt-4 py-3 rounded-xl font-bold text-white transition-all hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
-            style={{ background: 'linear-gradient(135deg, #7c3aed, #6d28d9)' }}
+            style={{ background: 'linear-gradient(135deg, #9B1B5A, #E12FBE)' }}
           >
             Aplicar Configuración
           </button>
@@ -209,7 +207,7 @@ export default function AdminPage() {
           {/* Controls */}
           <div
             className="rounded-2xl p-6"
-            style={{ background: '#0d0520', border: '1px solid rgba(168,85,247,0.2)' }}
+            style={{ background: '#0d0520', border: '1px solid rgba(225,47,190,0.2)' }}
           >
             <h2 className="text-xl font-bold text-white mb-4">Controles</h2>
 
@@ -217,7 +215,7 @@ export default function AdminPage() {
               <div className="flex items-center justify-center gap-3 mb-4 p-3 rounded-xl"
                 style={{ background: '#06030f' }}>
                 <span className="text-4xl font-black text-white">{timerStr}</span>
-                <span className="text-purple-400">{totalVotes} votos</span>
+                <span className="text-gold">{totalVotes} votos</span>
               </div>
             )}
 
@@ -226,7 +224,7 @@ export default function AdminPage() {
                 onClick={start}
                 disabled={status !== 'idle' || !configured}
                 className="w-full py-4 rounded-xl font-black text-xl text-white transition-all hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
-                style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', boxShadow: '0 0 20px rgba(34,197,94,0.3)' }}
+                style={{ background: 'linear-gradient(135deg, #5FE88E, #2BA85E)', color: '#06291a', boxShadow: '0 0 20px rgba(95,232,142,0.35)' }}
               >
                 Iniciar Votación
               </button>
@@ -235,7 +233,7 @@ export default function AdminPage() {
                 onClick={reveal}
                 disabled={status !== 'voting'}
                 className="w-full py-4 rounded-xl font-black text-xl text-white transition-all hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
-                style={{ background: 'linear-gradient(135deg, #eab308, #ca8a04)', boxShadow: '0 0 20px rgba(234,179,8,0.3)' }}
+                style={{ background: 'linear-gradient(135deg, #E8C96A, #C9A84C)', color: '#1a0a14', boxShadow: '0 0 20px rgba(201,168,76,0.35)' }}
               >
                 Revelar Ganador
               </button>
@@ -256,7 +254,7 @@ export default function AdminPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="rounded-2xl p-5"
-              style={{ background: '#0d0520', border: '1px solid rgba(168,85,247,0.2)' }}
+              style={{ background: '#0d0520', border: '1px solid rgba(225,47,190,0.2)' }}
             >
               <h2 className="text-lg font-bold text-white mb-3">Resultados en Vivo</h2>
               <div className="flex flex-col gap-3">
@@ -278,7 +276,7 @@ export default function AdminPage() {
                       </div>
                       <div className="flex-1">
                         <div className="flex justify-between text-sm mb-1">
-                          <span className={`font-bold ${isWinner ? 'text-yellow-400' : 'text-white'}`}>
+                          <span className={`font-bold ${isWinner ? 'text-gold' : 'text-white'}`}>
                             {song.title} {isWinner ? '🏆' : ''}
                           </span>
                           <span style={{ color }}>{pct}% ({count})</span>
@@ -302,14 +300,14 @@ export default function AdminPage() {
           {/* QR + URL */}
           <div
             className="rounded-2xl p-5 flex items-center gap-5"
-            style={{ background: '#0d0520', border: '1px solid rgba(168,85,247,0.2)' }}
+            style={{ background: '#0d0520', border: '1px solid rgba(225,47,190,0.2)' }}
           >
             <div className="bg-white p-2 rounded-xl flex-shrink-0">
               {voteUrl && <QRCodeSVG value={voteUrl} size={80} />}
             </div>
             <div>
               <p className="font-bold text-white text-sm mb-1">URL de votación</p>
-              <p className="text-purple-400 text-sm font-mono break-all">{voteUrl}</p>
+              <p className="text-gold-light text-sm font-mono break-all">{voteUrl}</p>
               <p className="text-gray-500 text-xs mt-2">
                 Mostrá este QR en pantalla o usá el display
               </p>

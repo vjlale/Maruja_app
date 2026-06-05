@@ -10,7 +10,9 @@ module.exports = {
       cwd: __dirname,
       env: {
         NODE_ENV: 'production',
-        PORT: 3000,
+        // Puerto 3001 por defecto para evitar conflictos con otras apps en el VPS.
+        // Cambialo si ese puerto también está ocupado.
+        PORT: 3001,
         // Nota: el QR se autodetecta desde el navegador (ver lib/vote-url.ts),
         // así que NO hace falta definir NEXT_PUBLIC_VOTE_URL acá. Esa variable
         // es de build-time (no de runtime): definirla en PM2 no tiene efecto en
