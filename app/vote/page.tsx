@@ -233,7 +233,7 @@ export default function VotePage() {
                 return winner ? (
                   <>
                     <h2 className="text-3xl font-black text-white mb-1 font-display">{winner.title}</h2>
-                    <p className="text-lg" style={{ color: '#E12FBE' }}>{winner.artist}</p>
+                    <p className="text-lg text-magenta">{winner.artist}</p>
                   </>
                 ) : null;
               })()}

@@ -39,9 +39,9 @@ export function PopDecor({ scene = 'display' }: { scene?: keyof typeof SCENES })
   const items = SCENES[scene] ?? SCENES.display;
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {items.map((it, i) => (
+      {items.map((it) => (
         <motion.img
-          key={i}
+          key={it.src}
           src={`/brand/${it.src}`}
           alt={it.alt}
           draggable={false}

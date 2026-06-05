@@ -98,7 +98,7 @@ export default function AdminPage() {
             onClick={openDisplay}
             className="px-4 py-2 rounded-xl font-bold text-sm transition-all hover:scale-105"
             style={{
-              background: 'linear-gradient(135deg, #E12FBE, #E8C96A)',
+              background: 'linear-gradient(135deg, var(--color-magenta), var(--color-gold-light))',
               color: '#1a0a14',
               boxShadow: '0 0 20px rgba(225,47,190,0.4)',
             }}
@@ -179,8 +179,7 @@ export default function AdminPage() {
               value={duration}
               onChange={e => setDuration(Number(e.target.value))}
               disabled={status !== 'idle'}
-              className="w-full disabled:opacity-50"
-              style={{ accentColor: '#E12FBE' }}
+              className="w-full disabled:opacity-50 accent-magenta"
             />
             <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span>15 seg</span>

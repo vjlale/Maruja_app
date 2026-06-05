@@ -143,7 +143,7 @@ export default function DisplayPage() {
                     <circle cx="68" cy="68" r="58" fill="none" stroke="#2a0f3e" strokeWidth="10" />
                     <circle
                       cx="68" cy="68" r="58" fill="none"
-                      stroke={timerPct > 0.3 ? '#E12FBE' : '#ef4444'}
+                      stroke={timerPct > 0.3 ? 'var(--color-magenta)' : '#ef4444'}
                       strokeWidth="10"
                       strokeLinecap="round"
                       strokeDasharray={`${2 * Math.PI * 58}`}
@@ -336,7 +336,7 @@ export default function DisplayPage() {
 
               <motion.p
                 className="text-4xl font-bold"
-                style={{ color: '#E12FBE' }}
+                style={{ color: 'var(--color-magenta)' }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
