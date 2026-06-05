@@ -305,7 +305,7 @@ export default function AdminPage() {
             style={{ background: '#0d0520', border: '1px solid rgba(168,85,247,0.2)' }}
           >
             <div className="bg-white p-2 rounded-xl flex-shrink-0">
-              <QRCodeSVG value={voteUrl} size={80} />
+              {voteUrl && <QRCodeSVG value={voteUrl} size={80} />}
             </div>
             <div>
               <p className="font-bold text-white text-sm mb-1">URL de votación</p>

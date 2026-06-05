@@ -53,8 +53,9 @@ npm run build
 ## 4. Arrancar la app con PM2
 
 ```bash
-# Arrancar en el puerto 3000
-PORT=3000 pm2 start npm --name maruja -- start
+# Arrancar usando la configuración declarativa del repo
+# (define nombre "maruja", puerto 3000 y reinicio automático)
+pm2 start ecosystem.config.js
 
 # Que arranque sola cuando se reinicia el VPS
 pm2 save
@@ -117,6 +118,8 @@ server {
         proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 EOF
