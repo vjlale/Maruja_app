@@ -2,16 +2,16 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSocket } from '@/lib/socket-client';
+import { useVoteUrl } from '@/lib/vote-url';
 import { Confetti } from '@/components/Confetti';
 import { QRCodeSVG } from 'qrcode.react';
 
 const SONG_COLORS = ['#a855f7', '#ec4899', '#06b6d4', '#f97316'];
 const SONG_LABELS = ['A', 'B', 'C', 'D'];
 
-const voteUrl = process.env.NEXT_PUBLIC_VOTE_URL ?? 'http://localhost:3000/vote';
-
 export default function DisplayPage() {
   const { state } = useSocket();
+  const voteUrl = useVoteUrl();
 
   // Hide cursor in display window (for OBS capture)
   useEffect(() => {
