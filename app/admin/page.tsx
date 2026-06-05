@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useSocket } from '@/lib/socket-client';
+import { useVoteUrl } from '@/lib/vote-url';
 import { QRCodeSVG } from 'qrcode.react';
 import type { Song } from '@/lib/types';
 
@@ -12,8 +13,6 @@ const DEFAULT_SONGS: Song[] = [
   { id: '3', title: '', artist: '', coverUrl: '' },
   { id: '4', title: '', artist: '', coverUrl: '' },
 ];
-
-const voteUrl = process.env.NEXT_PUBLIC_VOTE_URL ?? 'http://localhost:3000/vote';
 
 function StatusBadge({ status }: { status: string }) {
   const map: Record<string, { label: string; color: string }> = {
@@ -35,6 +34,7 @@ function StatusBadge({ status }: { status: string }) {
 
 export default function AdminPage() {
   const { state, socket, connected } = useSocket();
+  const voteUrl = useVoteUrl();
   const [songs, setSongs] = useState<Song[]>(DEFAULT_SONGS);
   const [duration, setDuration] = useState(60);
   const [configured, setConfigured] = useState(false);
@@ -305,7 +305,7 @@ export default function AdminPage() {
             style={{ background: '#0d0520', border: '1px solid rgba(168,85,247,0.2)' }}
           >
             <div className="bg-white p-2 rounded-xl flex-shrink-0">
-              <QRCodeSVG value={voteUrl} size={80} />
+              {voteUrl && <QRCodeSVG value={voteUrl} size={80} />}
             </div>
             <div>
               <p className="font-bold text-white text-sm mb-1">URL de votación</p>

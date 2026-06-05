@@ -2,16 +2,16 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSocket } from '@/lib/socket-client';
+import { useVoteUrl } from '@/lib/vote-url';
 import { Confetti } from '@/components/Confetti';
 import { QRCodeSVG } from 'qrcode.react';
 
 const SONG_COLORS = ['#a855f7', '#ec4899', '#06b6d4', '#f97316'];
 const SONG_LABELS = ['A', 'B', 'C', 'D'];
 
-const voteUrl = process.env.NEXT_PUBLIC_VOTE_URL ?? 'http://localhost:3000/vote';
-
 export default function DisplayPage() {
   const { state } = useSocket();
+  const voteUrl = useVoteUrl();
 
   // Hide cursor in display window (for OBS capture)
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function DisplayPage() {
                 animate={{ boxShadow: ['0 0 40px rgba(168,85,247,0.6)', '0 0 80px rgba(168,85,247,1)', '0 0 40px rgba(168,85,247,0.6)'] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <QRCodeSVG value={voteUrl} size={220} />
+                {voteUrl && <QRCodeSVG value={voteUrl} size={220} />}
               </motion.div>
 
               <div className="text-center">
@@ -224,7 +224,7 @@ export default function DisplayPage() {
             {/* Bottom: QR hint */}
             <div className="flex items-center justify-center gap-4 mt-8">
               <div className="p-2 bg-white rounded-xl">
-                <QRCodeSVG value={voteUrl} size={60} />
+                {voteUrl && <QRCodeSVG value={voteUrl} size={60} />}
               </div>
               <div>
                 <p className="text-purple-300 text-lg font-bold">Escaneá y votá ahora</p>
